@@ -1,9 +1,6 @@
 import { defineStore } from 'pinia';
 import { io } from 'socket.io-client';
 
-const config = useRuntimeConfig();
-const serverUrl = config.public.serverUrl;
-
 export const useSocketStore = defineStore('socket', {
     state: () => ({
         socket: null,
@@ -19,12 +16,15 @@ export const useSocketStore = defineStore('socket', {
     actions: {
         connect() {
             if (!this.socket) {
+                const config = useRuntimeConfig();
+                const serverUrl = config.public.serverUrl;
+
                 this.socket = io(`${serverUrl}`, {
                     withCredentials: true,
                 });
 
                 this.socket.on('connect', () => {
-                    console.log('Connected the server with socket id: ', this.socket.id);
+                    console.log('Connected to the server with socket id: ', this.socket.id);
                 });
 
                 this.socket.on('disconnect', () => {
@@ -74,7 +74,6 @@ export const useSocketStore = defineStore('socket', {
             if (this.selectedAnswer === this.currentQuestion?.correctAnswer) {
                 this.score += 1;
             }
-            //this.currentQuestionIndex += 1;
             this.selectedAnswer = null;
         },
     },
