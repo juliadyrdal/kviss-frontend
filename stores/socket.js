@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import { io } from 'socket.io-client';
-const serverUrl = process.env.SERVER_URL
+
+const config = useRuntimeConfig();
+const serverUrl = config.public.serverUrl;
 
 export const useSocketStore = defineStore('socket', {
     state: () => ({

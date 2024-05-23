@@ -10,7 +10,8 @@ const questions = ref([]);
 const isGenerated = ref(false);
 const quizId = ref(null);
 
-const apiUrl = process.env.API_URL
+const config = useRuntimeConfig();
+const apiUrl = config.public.apiUrl;
 
 // Clipboard functionality
 const { copy, copied } = useClipboard();
