@@ -3,8 +3,7 @@ import { onMounted, computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useSocketStore } from '@/stores/socket';
 
-const config = useRuntimeConfig()
-const apiUrl = config.public.apiUrl
+const apiUrl = process.env.API_URL
 
 const route = useRoute();
 const socketStore = useSocketStore();
