@@ -83,7 +83,7 @@ const handleSubmit = async () => {
       <span v-else>Copied!</span>
     </button>
     <p class="pt-10 pb-4 text-lg font-semibold">Enter the quiz and start playing</p>
-    <button class="block w-full rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Join quiz</button>
+    <NuxtLink :to="`${clientUrl}/?quizId=${quizId}`"><button class="block w-full rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Join quiz</button></NuxtLink>
   </section>
 </template>
 
