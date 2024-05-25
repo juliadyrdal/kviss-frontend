@@ -8,12 +8,15 @@ const apiUrl = config.public.apiUrl;
 
 const route = useRoute();
 const socketStore = useSocketStore();
-const selectedAnswer = ref(null); // Local ref for selectedAnswer
+const selectedAnswer = ref(null); 
 const waitingForOthers = ref(false);
 const submittedPlayers = ref([]);
 const showQuestion = ref(true);
 const showScores = ref(false);
 const playerName = ref('');
+const correctAnswer = ref(null); 
+const showResults = ref(false); 
+const radioIsDisabled = ref(false);
 
 onMounted(async () => {
   socketStore.connect();
@@ -68,15 +71,31 @@ onMounted(async () => {
 });
 
 const nextQuestion = () => {
-  socketStore.selectedAnswer = selectedAnswer.value; // Update store with selectedAnswer
-  socketStore.submitAnswer();
-  waitingForOthers.value = true;
-  selectedAnswer.value = null; // Reset the local ref
-  showQuestion.value = false;
+  correctAnswer.value = socketStore.currentQuestion.correctAnswer; 
+  showResults.value = true; 
+  radioIsDisabled.value = true;
+  setTimeout(() => {
+    socketStore.selectedAnswer = selectedAnswer.value; // Update store with selectedAnswer
+    socketStore.submitAnswer();
+    waitingForOthers.value = true;
+    selectedAnswer.value = null; // Reset the local ref
+    showQuestion.value = false;
+    showResults.value = false;
+    radioIsDisabled.value = false;
+  }, 3000);
 };
 
 const currentQuestion = computed(() => socketStore.currentQuestion);
-const quizFinished = computed(() => socketStore.quizFinished); // Add this computed property
+
+const isCorrect = (option) => {
+  if (!showResults.value) return false;
+  return option === correctAnswer.value;
+};
+
+const isIncorrect = (option) => {
+  if (!showResults.value) return false;
+  return option !== correctAnswer.value && option === selectedAnswer.value;
+};
 </script>
 
 <template>
@@ -95,8 +114,8 @@ const quizFinished = computed(() => socketStore.quizFinished); // Add this compu
         <h2 class="pt-6 pb-4 text-2xl font-semibold">{{ currentQuestion.question }}</h2>
         <ul>
           <li v-for="(option, key) in currentQuestion.options" :key="key">
-            <label class="block px-6 py-8 my-6 border-2 border-[#333] rounded-lg">
-              <input type="radio" :name="socketStore.currentQuestionIndex" :value="key" v-model="selectedAnswer" />
+            <label :class="{ 'border-green-500': isCorrect(key), 'border-red-500': isIncorrect(key) }" class="block px-6 py-8 my-6 border-2 border-[#333] rounded-lg">
+              <input type="radio" :name="socketStore.currentQuestionIndex" :value="key" v-model="selectedAnswer" :disabled="radioIsDisabled" />
               {{ key }} : {{ option }}
             </label>
           </li>
