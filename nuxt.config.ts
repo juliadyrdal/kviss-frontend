@@ -4,6 +4,7 @@ export default defineNuxtConfig({
     public: {
       apiUrl: process.env.API_URL,
       serverUrl: process.env.SERVER_URL,
+      clientUrl: process.env.CLIENT_URL,
     }
   },
   devtools: { enabled: true },

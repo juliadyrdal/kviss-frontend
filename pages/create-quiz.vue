@@ -12,6 +12,7 @@ const quizId = ref(null);
 
 const config = useRuntimeConfig();
 const apiUrl = config.public.apiUrl;
+const clientUrl = config.public.clientUrl;
 
 // Clipboard functionality
 const { copy, copied } = useClipboard();
@@ -76,7 +77,7 @@ const handleSubmit = async () => {
   </section>
   <section class="container px-6" v-if="isGenerated">
     <p class="pt-16 pb-4 text-lg font-semibold">Copy the link below and share it to invite your friends</p>
-    <button @click="copy(`https://kviss.netlify.app/?quizId=${quizId}`)" class="block w-full mb-6 rounded-md bg-indigo-50 px-3.5 py-2.5 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100">
+    <button @click="copy(`${clientUrl}/?quizId=${quizId}`)" class="block w-full mb-6 rounded-md bg-indigo-50 px-3.5 py-2.5 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100">
       <!-- by default, `copied` will be reset in 1.5s -->
       <span class="flex gap-2 justify-center" v-if="!copied">Copy link <DocumentDuplicateIcon class="size-5 text-indigo-600" /></span>
       <span v-else>Copied!</span>

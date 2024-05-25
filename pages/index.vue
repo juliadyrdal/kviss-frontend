@@ -9,11 +9,13 @@ const socketStore = useSocketStore();
 
 const quizId = ref('');
 const playerName = ref('');
+const quizIdIsSet = ref(false);
 
 onMounted(() => {
   const queryQuizId = route.query.quizId;
   if (queryQuizId) {
     quizId.value = queryQuizId;
+    quizIdIsSet.value = true;
   }
 });
 
@@ -33,9 +35,15 @@ const handleSubmit = () => {
   <form @submit.prevent="handleSubmit">
   <label for="playerName" class="block mb-2">What do you want to call yourself?</label>
   <input type="text" v-model="playerName" class="mb-6 pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" id="playerName">
-  <label for="quizId" class="block mb-2">Enter the quiz ID</label>
-  <input type="text" v-model="quizId" class="mb-4 pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" id="quizId">
+  <label :class="{ hidden: quizIdIsSet }" for="quizId" class="block mb-2">Enter the quiz ID</label>
+  <input :class="{ hidden: quizIdIsSet }" type="text" v-model="quizId" class="mb-4 pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" id="quizId">
   <button type="submit" class="mt-3 w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Join quiz</button>
 </form>
 </section>
 </template>
+
+<style>
+.hidden {
+  display: none;
+}
+</style>
