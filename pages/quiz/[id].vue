@@ -17,6 +17,7 @@ const playerName = ref('');
 const correctAnswer = ref(null); 
 const showResults = ref(false); 
 const radioIsDisabled = ref(false);
+const allPlayersReady = ref(false);
 
 onMounted(async () => {
   socketStore.connect();
@@ -70,6 +71,10 @@ onMounted(async () => {
   });
 });
 
+const startQuiz = () => {
+  allPlayersReady.value = true;
+}
+
 const nextQuestion = () => {
   correctAnswer.value = socketStore.currentQuestion.correctAnswer; 
   showResults.value = true; 
@@ -110,17 +115,36 @@ const isIncorrect = (option) => {
       </ul>
     </div>
     <div v-else>
-      <div v-if="showQuestion && currentQuestion">
-        <h2 class="pt-6 pb-4 text-2xl font-semibold">{{ currentQuestion.question }}</h2>
+      <div v-if="showQuestion && currentQuestion && allPlayersReady">
+        <div class="flex justify-between pb-4">
+          <h2 class="font-semibold uppercase">Question</h2>
+          <span class="font-semibold text-lg uppercase">{{ socketStore.currentQuestionIndex + 1 }}/{{ socketStore.questions.length + 1 }}</span>
+        </div>
+        <div class="px-6 py-6 border-2 border-[#333] rounded-lg">
+          <h3 class="text-lg font-semibold">{{ currentQuestion.question }}</h3>
+        </div>
+        <div>
+          <h2 class="pt-8 -mb-2 font-semibold uppercase">Answer</h2>
+        </div>
         <ul>
           <li v-for="(option, key) in currentQuestion.options" :key="key">
-            <label :class="{ 'border-green-500': isCorrect(key), 'border-red-500': isIncorrect(key) }" class="block px-6 py-8 my-6 border-2 border-[#333] rounded-lg">
+            <label :class="{ 'border-green-500': isCorrect(key), 'border-red-500': isIncorrect(key) }" class="block px-6 py-4 my-6 border-2 border-[#333] rounded-lg">
               <input type="radio" :name="socketStore.currentQuestionIndex" :value="key" v-model="selectedAnswer" :disabled="radioIsDisabled" />
               {{ key }} : {{ option }}
             </label>
           </li>
         </ul>
         <button @click="nextQuestion" class="mt-3 w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Next</button>
+      </div>
+
+      <div v-if="!allPlayersReady">
+        <h3>Wait for all players before you start the quiz</h3>
+        <div v-if="socketStore.readyPlayers">
+          <span v-for="player in socketStore.readyPlayers" :key="player" class="inline-flex items-center mr-6 py-3 px-4 rounded-full bg-purple-100 px-2 py-1 text-sm font-semibold text-purple-700">
+            {{ player }}
+          </span>
+        </div>
+        <button @click="startQuiz" class="mt-3 w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Start quiz</button>
       </div>
 
       <div v-if="waitingForOthers">

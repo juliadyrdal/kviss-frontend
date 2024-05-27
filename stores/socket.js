@@ -12,6 +12,7 @@ export const useSocketStore = defineStore('socket', {
         score: 0,
         players: [],
         quizFinished: false,
+        readyPlayers: [],
     }),
     actions: {
         connect() {
@@ -35,8 +36,9 @@ export const useSocketStore = defineStore('socket', {
                     console.log('Answer submitted by another user:', data);
                 });
 
-                this.socket.on('newUser', (message) => {
-                    console.log(message);
+                this.socket.on('updateReadyPlayers', (data) => {
+                    console.log('Updated ready players: ', data.readyPlayers);
+                    this.readyPlayers = data.readyPlayers;
                 });
 
                 this.socket.on('allPlayersFinished', ({ players, questionIndex }) => {
