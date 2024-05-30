@@ -2,6 +2,7 @@
 import { onMounted, computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useSocketStore } from '@/stores/socket';
+import IconUnderline2 from '~/assets/underline-2.svg'
 
 const config = useRuntimeConfig();
 const apiUrl = config.public.apiUrl;
@@ -104,9 +105,13 @@ const isIncorrect = (option) => {
 </script>
 
 <template>
-  <section class="container px-6">
+  <div class="h-[100vh] bg-surface-light">
+  <section class="container max-w-[40rem] mx-auto px-6">
     <div v-if="socketStore.quizFinished">
-      <h2 class="pt-8 pb-6 text-2xl font-semibold">Quiz Finished</h2>
+      <div class="flex flex-col items-center">
+        <h2 class="pt-8 pb-4 text-xl font-semibold">Finished</h2>
+        <IconUnderline2 class="mb-4 w-40 text-black" :fontControlled="false" />
+      </div>
       <h3 class="text-xl font-semibold">Final Scores:</h3>
       <ul>
         <li v-for="player in socketStore.players" :key="player.playerName">
@@ -116,35 +121,36 @@ const isIncorrect = (option) => {
     </div>
     <div v-else>
       <div v-if="showQuestion && currentQuestion && allPlayersReady">
-        <div class="flex justify-between pb-4">
+        <div class="flex justify-between px-4 py-1 border-2 border-black bg-purple">
           <h2 class="font-semibold uppercase">Question</h2>
           <span class="font-semibold text-lg uppercase">{{ socketStore.currentQuestionIndex + 1 }}/{{ socketStore.questions.length + 1 }}</span>
         </div>
-        <div class="px-6 py-6 border-2 border-[#333] rounded-lg">
-          <h3 class="text-lg font-semibold">{{ currentQuestion.question }}</h3>
+        <div class="px-4 py-6 border-2 border-black bg-white">
+          <h3 class="font-semibold">{{ currentQuestion.question }}</h3>
         </div>
         <div>
           <h2 class="pt-8 -mb-2 font-semibold uppercase">Answer</h2>
         </div>
         <ul>
           <li v-for="(option, key) in currentQuestion.options" :key="key">
-            <label :class="{ 'border-green-500': isCorrect(key), 'border-red-500': isIncorrect(key) }" class="block px-6 py-4 my-6 border-2 border-[#333] rounded-lg">
+            <label :class="{ 'border-green': isCorrect(key), 'border-red-500': isIncorrect(key) }" class="block px-6 py-4 my-6 border-2 border-black bg-white">
               <input type="radio" :name="socketStore.currentQuestionIndex" :value="key" v-model="selectedAnswer" :disabled="radioIsDisabled" />
               {{ key }} : {{ option }}
             </label>
           </li>
         </ul>
-        <button @click="nextQuestion" class="mt-3 w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Next</button>
+        <button @click="nextQuestion" class="mt-3 w-full bg-black px-3.5 py-2.5 font-bold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Next</button>
       </div>
 
       <div v-if="!allPlayersReady">
-        <h3>Wait for all players before you start the quiz</h3>
+        <h3 class="font-semibold text-center text-sm">Wait until all players are ready</h3>
+        <h4 class="mt-16 mb-6 font-semibold text-center text-sm">Players</h4>
         <div v-if="socketStore.readyPlayers">
-          <span v-for="player in socketStore.readyPlayers" :key="player" class="inline-flex items-center mr-6 py-3 px-4 rounded-full bg-purple-100 px-2 py-1 text-sm font-semibold text-purple-700">
+          <span v-for="player in socketStore.readyPlayers" :key="player" class="block mb-4 text-center w-full border border-black bg-white px-3.5 py-2.5 text-black">
             {{ player }}
           </span>
         </div>
-        <button @click="startQuiz" class="mt-3 w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Start quiz</button>
+        <button @click="startQuiz" class="mt-2 w-full bg-black px-3.5 py-2.5 font-bold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Start quiz</button>
       </div>
 
       <div v-if="waitingForOthers">
@@ -169,4 +175,5 @@ const isIncorrect = (option) => {
       </div>
     </div>
   </section>
+</div>
 </template>

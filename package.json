@@ -16,6 +16,7 @@
     "@vueuse/nuxt": "^10.9.0",
     "dotenv": "^16.4.5",
     "nuxt": "^3.11.2",
+    "nuxt-svgo": "^4.0.1",
     "socket.io-client": "^4.7.5",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2"

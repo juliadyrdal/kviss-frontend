@@ -1,3 +1,46 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom styles for range input */
+.range-input {
+    @apply mb-1;
+  }
+  
+  .range-input::-webkit-slider-runnable-track {
+    background: theme('colors.purple');
+    height: 4px;
+  }
+  
+  .range-input::-moz-range-track {
+    background: theme('colors.purple');
+    height: 4px;
+  }
+  
+  .range-input::-ms-track {
+    background: theme('colors.purple');
+    height: 4px;
+    border-color: transparent;
+    color: transparent;
+  }
+  
+  .range-input::-webkit-slider-thumb {
+    @apply w-4 h-4 rounded-full border border-black;
+    background: theme('colors.purple');
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -6px; /* Adjust this value to center the thumb vertically */
+  }
+  
+  .range-input::-moz-range-thumb {
+    @apply w-4 h-4 rounded-full border border-black;
+    background: theme('colors.purple');
+    cursor: pointer;
+  }
+  
+  .range-input::-ms-thumb {
+    @apply w-4 h-4 rounded-full border border-black;
+    background: theme('colors.purple');
+    cursor: pointer;
+  }
+  
