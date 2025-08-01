@@ -32,7 +32,6 @@ const handleSubmit = () => {
 </script>
 
 <template>
-  <div class="h-[100vh] bg-surface-light">
     <section class="container max-w-[40rem] mx-auto px-6 pt-4 flex justify-center">
       <NuxtLink to="/create-quiz" class="w-full"><button class="w-full bg-purple px-3.5 py-2.5 font-bold text-black border border-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"><span class="mr-2">+</span>Create new quiz</button></NuxtLink>
     </section>
@@ -49,5 +48,4 @@ const handleSubmit = () => {
         <button type="submit" class="mt-6 w-full bg-black px-3.5 py-2.5 font-bold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Join quiz</button>
       </form>
     </section>
-  </div>
 </template>

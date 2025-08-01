@@ -105,7 +105,6 @@ const isIncorrect = (option) => {
 </script>
 
 <template>
-  <div class="h-[100vh] bg-surface-light">
   <section class="container max-w-[40rem] mx-auto px-6">
     <div v-if="socketStore.quizFinished">
       <div class="flex flex-col items-center">
@@ -123,7 +122,7 @@ const isIncorrect = (option) => {
       <div v-if="showQuestion && currentQuestion && allPlayersReady">
         <div class="flex justify-between px-4 py-1 border-2 border-black bg-purple">
           <h2 class="font-semibold uppercase">Question</h2>
-          <span class="font-semibold text-lg uppercase">{{ socketStore.currentQuestionIndex + 1 }}/{{ socketStore.questions.length + 1 }}</span>
+          <span class="font-semibold text-lg uppercase">{{ socketStore.currentQuestionIndex + 1 }}/{{ socketStore.questions.length }}</span>
         </div>
         <div class="px-4 py-6 border-2 border-black bg-white">
           <h3 class="font-semibold">{{ currentQuestion.question }}</h3>
@@ -175,5 +174,4 @@ const isIncorrect = (option) => {
       </div>
     </div>
   </section>
-</div>
 </template>

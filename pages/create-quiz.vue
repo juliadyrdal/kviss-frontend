@@ -53,7 +53,6 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <div class="h-[100vh] bg-surface-light">
     <section class="container max-w-[40rem] mx-auto px-6">
     <div v-if="isLoading">
       <p>Generating quiz...</p>
@@ -92,6 +91,5 @@ const handleSubmit = async () => {
     <p class="pt-10 pb-4 text-lg font-semibold">Enter the quiz and start playing</p>
     <NuxtLink :to="`${clientUrl}/?quizId=${quizId}`"><button class="w-full bg-black px-3.5 py-2.5 font-bold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Join quiz</button></NuxtLink>
   </section>
-</div>
 </template>
 
