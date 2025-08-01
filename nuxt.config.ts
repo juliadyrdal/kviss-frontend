@@ -7,6 +7,9 @@ export default defineNuxtConfig({
       clientUrl: process.env.CLIENT_URL,
     }
   },
+  devServer: {
+    port: 3001
+  },
   devtools: { enabled: true },
   modules: [
     '@pinia/nuxt',
