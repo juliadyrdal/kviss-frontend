@@ -1,76 +1,63 @@
-# Nuxt 3 Minimal Starter
+# Kviss Frontend 🎮✨
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Frontend for **Kviss**, a real-time multiplayer quiz app with AI-generated questions.  
+Built with Vue 3 (Composition API), Nuxt 3, Pinia, and TailwindCSS. Designed to provide a playful yet uncluttered interface for group quiz sessions.  
 
-## Setup
+---
 
-Make sure to install the dependencies:
 
+## ✨ Features
+- 🎨 Intuitive UI for creating or joining quizzes  
+- 🧑‍🤝‍🧑 Multiplayer support with synced gameplay flow  
+- 🤖 AI-powered quiz generation using OpenAI GPT-4o  
+- ⚡ Real-time updates via WebSockets (Socket.io on backend)  
+- 🗂️ State management with Pinia  
+- 🎭 Mobile-friendly design  
+
+---
+
+## 📡 Status
+🚧 **Work in Progress**  
+- ✅ Create quiz with theme, difficulty, number of questions  
+- ✅ Join games and play in real time  
+- ✅ Game flow syncs across players  
+- 🔜 UX improvements to landing page (simplify choices)  
+- 🔜 Better loading indicators when generating quiz 
+- 🔜 Improved cues to show wrong/correct answer  
+
+---
+
+
+## 🛠️ Tech Stack
+- Vue 3 (Composition API)  
+- Nuxt 3 (SSR)  
+- Pinia for state management  
+- TailwindCSS for styling  
+- Socket.io for multiplayer sync (via backend)  
+- OpenAI API for quiz generation  
+
+---
+
+
+## 🚀 Getting Started
+
+### Run locally
 ```bash
-# npm
-npm install
+# Clone repo
+git clone https://github.com/juliadyrdal/kviss-frontend.git
+cd kviss-frontend
 
-# pnpm
+# Install dependencies
 pnpm install
 
-# yarn
-yarn install
+# Environment setup
+cp .env.example .env 
 
-# bun
-bun install
+# Run locally
+pnpm dev
+
+# Server will run at
+http://localhost:3000
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-# kviss-frontend
+---
