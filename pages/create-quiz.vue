@@ -44,7 +44,6 @@ const handleCreate = async ({ theme, difficulty, numQuestions }) => {
 
     // Process response
     const data = await response.json();
-    console.log('Received data: ', data);
     quizId.value = data.quizId;
     questions.value = data.questions.quiz || []
 
