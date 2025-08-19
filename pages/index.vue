@@ -17,7 +17,7 @@ const router = useRouter();
 const route = useRoute();
 const socketStore = useSocketStore();
 
-const initialQuizId = computed(() => route.query.quizId)
+const initialQuizId = computed(() => route.query.quizId ? route.query.quizId : '')
 
 const handleJoin = ({ playerName, quizId }) => {
   socketStore.setPlayerName(playerName)

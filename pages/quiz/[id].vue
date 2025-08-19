@@ -118,6 +118,8 @@ const isIncorrect = (option) => {
         </li>
       </ul>
     </div>
+
+
     <div v-else>
       <div v-if="showQuestion && currentQuestion && allPlayersReady">
         <div class="flex justify-between px-4 py-1 border-2 border-black bg-purple">
@@ -141,16 +143,7 @@ const isIncorrect = (option) => {
         <button @click="nextQuestion" class="mt-3 w-full bg-black px-3.5 py-2.5 font-bold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Next</button>
       </div>
 
-      <div v-if="!allPlayersReady">
-        <h3 class="font-semibold text-center text-sm">Wait until all players are ready</h3>
-        <h4 class="mt-16 mb-6 font-semibold text-center text-sm">Players</h4>
-        <div v-if="socketStore.readyPlayers">
-          <span v-for="player in socketStore.readyPlayers" :key="player" class="block mb-4 text-center w-full border border-black bg-white px-3.5 py-2.5 text-black">
-            {{ player }}
-          </span>
-        </div>
-        <button @click="startQuiz" class="mt-2 w-full bg-black px-3.5 py-2.5 font-bold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Start quiz</button>
-      </div>
+      <ReadyPlayers v-if="!allPlayersReady" @start="startQuiz" :ready-players="socketStore.readyPlayers" />
 
       <div v-if="waitingForOthers">
         <p>Waiting for other players...</p>
